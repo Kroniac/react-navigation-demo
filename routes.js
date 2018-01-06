@@ -1,10 +1,16 @@
 import React from 'react';
-import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
+import {
+  TabNavigator,
+  TabBarBottom,
+  StackNavigator,
+  DrawerNavigator
+} from 'react-navigation';
 
 import FirstScreen from './components/screens/FirstScreen';
 import SecondScreen from './components/screens/SecondScreen';
 import Login from './components/screens/Login';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Drawer from './components/screens/Drawer';
 
 export const Tabs = TabNavigator(
   {
@@ -31,10 +37,17 @@ export const Tabs = TabNavigator(
     }
   }
 );
-
+const MyApp = DrawerNavigator({
+  Login: {
+    screen: Login
+  },
+  Drawer: {
+    screen: Drawer
+  }
+});
 export const LoginScreen = StackNavigator({
   Login: {
-    screen: Login,
+    screen: MyApp,
     navigationOptions: {
       header: null
     }
@@ -43,4 +56,3 @@ export const LoginScreen = StackNavigator({
     screen: Tabs
   }
 });
-
