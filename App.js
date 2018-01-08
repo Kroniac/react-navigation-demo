@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Tabs, LoginScreen } from './routes';
+import { Tabs, LoginScreen, MyApp } from './routes';
+import { addNavigationHelpers, StackNavigator } from 'react-navigation';
+import { connect } from 'react-redux';
 
-
-export default class App extends Component {
-  
+class App extends Component {
   render() {
     return <LoginScreen />;
   }
 }
+
+export default App;

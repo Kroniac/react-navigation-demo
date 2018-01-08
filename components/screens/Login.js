@@ -1,12 +1,42 @@
 import React, { Component } from 'react';
-import { View, Button, TextInput, StyleSheet, Text } from 'react-native';
+import {
+  ScrollView,
+  Button,
+  TextInput,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import * as actions from '../../store/actions/actions';
 
 class Login extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      drawerLabel: 'Home',
+      drawerIcon: ({ tintColor }) => <Icon name="md-map" size={25} />,
+      headerLeft: (
+        <Icon
+          name="md-list"
+          size={25}
+          style={{ padding: 20 }}
+          onPress={() => navigation.navigate('DrawerOpen')}
+        />
+      )
+    };
+  };
 
   tabMenu = () => {
     this.props.navigation.navigate('FirstScreen');
+  };
+
+  onChangeHandler = val => {
+    this.props.onChange(val);
+  };
+
+  onAddItemHandler = () => {
+    this.props.onAddItem();
   };
 
   render() {
@@ -14,19 +44,21 @@ class Login extends Component {
       return <Text key={key}>{item}</Text>;
     });
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={{ width: 200 }}
-          placeholder="Enter something"
-          onChangeText={val => this.props.onChange(val)}
-          value={this.props.value}
-        />
-        <View>
-          <Button title="Add" onPress={() => this.props.onAddItem()} />
-          <Button title="Click Me" onPress={this.tabMenu} />
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <View style={styles.container}>
+          <TextInput
+            style={{ width: 200 }}
+            placeholder="Enter something"
+            onChangeText={this.onChangeHandler}
+            value={this.props.value}
+          />
+          <View>
+            <Button title="Add" onPress={this.onAddItemHandler} />
+            <Button title="Click Me" onPress={this.tabMenu} />
+          </View>
+          <View>{list}</View>
         </View>
-        <View>{list}</View>
-      </View>
+      </ScrollView>
     );
   }
 }
